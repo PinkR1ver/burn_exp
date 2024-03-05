@@ -12,7 +12,7 @@ def logmag2liner(x):
 if __name__ == '__main__':
     
     base_path = os.path.dirname(__file__)
-    data_path = os.path.join(base_path, 'data')
+    data_path = os.path.join(base_path, 'range_data')
     fig_path = os.path.join(base_path, 'fig')
     signal_path = os.path.join(base_path, 'signal')
     

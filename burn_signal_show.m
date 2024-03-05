@@ -9,7 +9,25 @@ mc_signal = signal(:,2); % get mutual coupling signal
 
 signal = signal(:, 3:end);
 
-burn_time = {0, 3, 10, 15, 30};
+% % traverse folder to get burn time cell
+% burn_time = dir('./burn_signal');
+% burn_time = {burn_time.name};
+% for i = 1:length(burn_time)
+%     % check if '.txt' in file and is the digit after split .
+%     if ~isempty(strfind(burn_time{i}, '.txt'))
+%         burn_time{i} = burn_time{i}(1:end-4);
+%         if isempty(str2double(burn_time{i}))
+%             burn_time{i} = [];
+%         else
+%             burn_time{i} = str2double(burn_time{i});
+%         end
+%     else
+%         burn_time{i} = [];
+%     end
+% end
+
+burn_time = {0, 120, 15, 30};
+
 
 figure;
 
@@ -20,7 +38,7 @@ hLineEnv = cell(length(burn_time), 1);
 
 for i = 1:length(burn_time)
 
-    hLineEnv{i} = plot(t, signal(:,i), 'LineWidth', 1.5, 'DisplayName', ['Burn time = ', num2str(burn_time{i}), 's']);
+    hLineEnv{i} = plot(t, signal(:,i), 'LineWidth', 1.5, 'DisplayName', ['Burn time = ', num2str(burn_time{i}), 'cm']);
     hold on;
 
 end
@@ -41,21 +59,21 @@ grid minor;
 
 prompt = burn_time;
 for i = 1:length(burn_time)
-    prompt{i} = ['Show Signal in Burn time = ', num2str(burn_time{i}), 's', ' and MC signal'];
+    prompt{i} = ['Show Signal in Burn time = ', num2str(burn_time{i}), 'cm', ' and MC signal'];
 end
 prompt{end + 1} = 'Show All Signal';
 
 popupmenu1 = uicontrol('Style', 'popupmenu', 'String', prompt, 'Position', [20, 20, 100, 50], 'Callback', @(src, event) updatePlot1(src, event, hLine, hLineEnv));
 
 for i = 1:length(burn_time)
-    burn_time{i} = ['Show Signal in Burn time = ', num2str(burn_time{i}), 's'];
+    burn_time{i} = ['Show Signal in Burn time = ', num2str(burn_time{i}), 'cm'];
 end
 prompt{end} = 'Show Background Signal';
 
 popupmenu2 = uicontrol('Style', 'popupmenu', 'String', prompt, 'Position', [120, 20, 100, 50], 'Callback', @(src, event) updatePlot2(src, event, hLine, hLineEnv));
 
 for i = 1:length(burn_time)
-    prompt{i} = ['Hide Signal in Burn time = ', num2str(burn_time{i}), 's'];
+    prompt{i} = ['Hide Signal in Burn time = ', num2str(burn_time{i}), 'cm'];
 end
 prompt{end} = 'Hide Background Signal';
 
